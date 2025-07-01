@@ -1,0 +1,179 @@
+name: Bug Report
+description: Report a bug or issue with the Claude Code Sound Themes system
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out this form as completely as possible to help us reproduce and fix the issue.
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which part of the system is affected?
+      options:
+        - Sound Player Script (themed-sound-player.sh)
+        - Installation System (/project:install)
+        - Theme Management (/project:update-theme)
+        - Theme Creation (/project:create-theme)
+        - Claude Code Integration (hooks)
+        - Sound Playback
+        - Settings Management
+        - Cross-platform Compatibility
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this bug?
+      options:
+        - Critical (System completely broken)
+        - High (Major functionality broken)
+        - Medium (Some functionality impaired)
+        - Low (Minor issue or cosmetic)
+    validations:
+      required: true
+
+  - type: input
+    id: operating_system
+    attributes:
+      label: Operating System
+      description: "What OS are you using? (e.g., macOS 14.2, Ubuntu 22.04, Windows 11)"
+      placeholder: "macOS 14.2"
+    validations:
+      required: true
+
+  - type: input
+    id: claude_version
+    attributes:
+      label: Claude Code Version
+      description: "What version of Claude Code are you using?"
+      placeholder: "e.g., 1.2.3"
+    validations:
+      required: false
+
+  - type: input
+    id: current_theme
+    attributes:
+      label: Current Theme
+      description: "What sound theme are you currently using?"
+      placeholder: "e.g., default, darth-vader, custom-theme"
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Bug Description
+      description: "A clear and concise description of what the bug is."
+      placeholder: "Describe what's happening..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: "Steps to reproduce the behavior"
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      description: "What did you expect to happen?"
+      placeholder: "I expected..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual Behavior
+      description: "What actually happened?"
+      placeholder: "Instead..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: error_messages
+    attributes:
+      label: Error Messages
+      description: "Any error messages or logs you're seeing"
+      placeholder: |
+        Paste any error messages here.
+        Check ~/.claude/sound-log.txt for sound-related errors.
+      render: text
+
+  - type: textarea
+    id: settings_json
+    attributes:
+      label: Settings Configuration
+      description: "Relevant parts of your ~/.claude/settings.json (remove any sensitive info)"
+      placeholder: |
+        {
+          "soundTheme": "your-theme",
+          "hooks": {
+            "notification": "~/.claude/themed-sound-player.sh notification \"$MESSAGE\"",
+            "stop": "~/.claude/themed-sound-player.sh stop"
+          }
+        }
+      render: json
+
+  - type: textarea
+    id: sound_log
+    attributes:
+      label: Sound Log
+      description: "Recent entries from ~/.claude/sound-log.txt (if relevant)"
+      placeholder: "Paste relevant log entries here..."
+      render: text
+
+  - type: checkboxes
+    id: troubleshooting
+    attributes:
+      label: Troubleshooting Attempted
+      description: "What have you already tried?"
+      options:
+        - label: "Restarted Claude Code"
+        - label: "Reinstalled using /project:install"
+        - label: "Tried different theme"
+        - label: "Checked file permissions"
+        - label: "Verified jq is installed"
+        - label: "Checked sound system/audio output"
+        - label: "Reviewed sound log file"
+        - label: "Tested with minimal settings.json"
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: "Any other context about the problem"
+      placeholder: |
+        - When did this start happening?
+        - Does it happen with all themes or just specific ones?
+        - Any recent system changes?
+        - Workarounds you've found?
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Confirmation
+      description: "Please confirm the following:"
+      options:
+        - label: "I have searched existing issues to make sure this hasn't been reported already"
+          required: true
+        - label: "I have provided all relevant information to help reproduce this issue"
+          required: true
+        - label: "I understand this is an open source project maintained by volunteers"
+          required: true
