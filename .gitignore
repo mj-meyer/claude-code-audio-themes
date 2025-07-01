@@ -1,0 +1,47 @@
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+.claude/sound-log.txt
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Node.js (if ever needed)
+node_modules/
+npm-debug.log*
+
+# Python (if ever needed)
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+
+# Personal customization branches (don't push these)
+# Users should keep their personal branches local
+personal-*
