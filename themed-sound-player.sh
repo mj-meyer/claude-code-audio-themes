@@ -23,7 +23,11 @@ readonly E_INVALID_ARGS=9
 log_message() {
   local level="$1"
   local message="$2"
-  echo "[$level] $SCRIPT_NAME: $message" >&2
+  # Only output to stderr for ERROR level
+  if [[ "$level" == "ERROR" ]]; then
+    echo "[$level] $SCRIPT_NAME: $message" >&2
+  fi
+  # Always log to file if possible
   if [[ -w "$(dirname "$LOG_FILE")" ]] 2>/dev/null; then
     echo "$(date '+%Y-%m-%d %H:%M:%S') [$level] $message" >> "$LOG_FILE" 2>/dev/null
   fi
@@ -568,15 +572,15 @@ main() {
   else
     # Notification event - parse message to determine specific event type
     if ! command -v jq >/dev/null 2>&1; then
-      echo "Error: jq is required for notification events" >&2
-      exit 1
+      # Silently fail - don't interrupt workflow
+      exit 0
     fi
 
     # Read JSON from stdin
     local json_input
     json_input=$(cat)
 
-    # Extract message from JSON with robust error handling
+    # Extract message from JSON - fail silently if issues
     if [[ -n "$json_input" ]]; then
       message=$(echo "$json_input" | jq -r '.message // ""' 2>/dev/null || echo "")
     else
@@ -586,10 +590,10 @@ main() {
     if [[ -z "$message" ]]; then
       event_type="default"
       message="Unknown notification"
-      log_message "WARN" "No message found in notification JSON, using default event type"
+      # Silent - no warning logs for missing message
     else
       event_type=$(determine_event_type "$message")
-      log_message "INFO" "Parsed notification message: $message"
+      # Silent - no info logs during normal operation
     fi
   fi
 
@@ -598,8 +602,8 @@ main() {
   sound_file=$(get_random_sound "$theme" "$event_type")
 
   if [[ $? -ne 0 ]]; then
-    echo "Failed to find sound for theme: $theme, event: $event_type" >&2
-    exit 1
+    # Silently fail - don't interrupt workflow
+    exit 0
   fi
 
   # Parse volume from filename
