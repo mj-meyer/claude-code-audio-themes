@@ -576,14 +576,20 @@ main() {
     local json_input
     json_input=$(cat)
 
-    # Extract message from JSON
-    message=$(echo "$json_input" | jq -r '.message // ""')
+    # Extract message from JSON with robust error handling
+    if [[ -n "$json_input" ]]; then
+      message=$(echo "$json_input" | jq -r '.message // ""' 2>/dev/null || echo "")
+    else
+      message=""
+    fi
 
     if [[ -z "$message" ]]; then
       event_type="default"
       message="Unknown notification"
+      log_message "WARN" "No message found in notification JSON, using default event type"
     else
       event_type=$(determine_event_type "$message")
+      log_message "INFO" "Parsed notification message: $message"
     fi
   fi
 
