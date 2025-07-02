@@ -69,7 +69,7 @@ Sound files use the pattern: `description-volume.extension`
 ### Volume Control Implementation
 - **macOS**: `afplay -v decimal` where volume/100 = decimal (supports >1.0 for amplification)
 - **Linux**: `paplay --volume=int` where volume*655 = int, or `play -v decimal`
-- **Windows**: Basic PowerShell support (no volume control)
+- **Windows**: Basic PowerShell support (no volume control, uses Play() for non-blocking)
 
 ### Git Workflow for Local Customizations
 The update-theme command implements sophisticated git workflow:

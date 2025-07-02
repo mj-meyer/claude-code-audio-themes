@@ -33,7 +33,6 @@ play_sound() {
   local volume="$2"
 
   if [[ ! -f "$sound_file" ]]; then
-    echo "Sound file not found: $sound_file" >&2
     return 1
   fi
 
@@ -53,14 +52,12 @@ play_sound() {
       aplay -q "$sound_file" 2>/dev/null &
     elif command -v play >/dev/null 2>&1; then
       play -q -v "$(echo "scale=2; $volume / 100" | bc)" "$sound_file" 2>/dev/null &
-    else
-      echo "No sound player found on Linux" >&2
     fi
     ;;
   "CYGWIN"* | "MINGW"* | "MSYS"*) # Windows
     if command -v powershell.exe >/dev/null 2>&1; then
       # Windows volume control is more complex, play at default volume
-      powershell.exe -c "(New-Object Media.SoundPlayer '$sound_file').PlaySync()" 2>/dev/null &
+      powershell.exe -c "(New-Object Media.SoundPlayer '$sound_file').Play()" 2>/dev/null &
     fi
     ;;
   esac
@@ -91,7 +88,6 @@ get_random_sound() {
   fi
 
   if [[ ${#sound_files[@]} -eq 0 ]]; then
-    echo "No sound files found in: $theme_dir or default" >&2
     return 1
   fi
 
@@ -130,9 +126,6 @@ main() {
 
   # Validate hook type
   if [[ "$hook_type" != "notification" && "$hook_type" != "stop" ]]; then
-    echo "Usage: $0 {notification|stop}" >&2
-    echo "  notification - for Notification hook events" >&2
-    echo "  stop - for Stop hook events" >&2
     exit 1
   fi
 
@@ -150,7 +143,6 @@ main() {
   else
     # Notification event - parse message to determine specific event type
     if ! command -v jq >/dev/null 2>&1; then
-      echo "Error: jq is required for notification events" >&2
       exit 1
     fi
 
@@ -168,10 +160,8 @@ main() {
     if [[ -z "$message" ]]; then
       event_type="default"
       message="Unknown notification"
-      log_message "WARN" "No message found in notification JSON, using default event type"
     else
       event_type=$(determine_event_type "$message")
-      log_message "INFO" "Parsed notification message: $message"
     fi
   fi
 
@@ -180,8 +170,7 @@ main() {
   sound_file=$(get_random_sound "$theme" "$event_type")
 
   if [[ $? -ne 0 ]]; then
-    echo "Failed to find sound for theme: $theme, event: $event_type" >&2
-    exit 1
+    exit 0
   fi
 
   # Parse volume from filename
@@ -191,7 +180,7 @@ main() {
   # Play the sound
   play_sound "$sound_file" "$volume"
 
-  # Optional: Log for debugging
+  # Log for debugging
   echo "$(date): $theme/$event_type - $(basename "$sound_file") @ ${volume}% - $message" >>~/.claude/sound-log.txt
 }
 

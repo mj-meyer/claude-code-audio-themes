@@ -7,7 +7,6 @@
         "hooks": [
           {
             "type": "command",
-            "comment": "Sound player - plays different sounds for different notification types",
             "command": "bash ~/.claude/themed-sound-player.sh notification"
           }
         ]
@@ -19,7 +18,6 @@
         "hooks": [
           {
             "type": "command",
-            "comment": "Sound player - plays completion sound when Claude stops responding",
             "command": "bash ~/.claude/themed-sound-player.sh stop"
           }
         ]
@@ -27,4 +25,3 @@
     ]
   }
 }
-

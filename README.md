@@ -181,6 +181,7 @@ This command:
 - **Permission errors**: The script uses `bash` explicitly, so no chmod needed
 - **Wrong sounds**: Verify your theme name matches the directory name
 - **Volume issues**: Adjust the volume numbers in filenames
+- **Debug logs**: Check `~/.claude/sound-log.txt` for detailed sound activity logs
 
 ## Contributing
 
