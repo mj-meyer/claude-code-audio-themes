@@ -1,6 +1,6 @@
-# Claude Code Sound Themes
+# Claude Code Audio Themes
 
-A customizable sound notification system for Claude Code hooks that plays different sounds for different events.
+A customizable audio notification system for Claude Code hooks that plays different sounds for different events.
 
 ## Features
 

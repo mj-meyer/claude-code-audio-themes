@@ -3,9 +3,9 @@ allowed-tools: Bash(*), Read(*), Edit(*), Write(*)
 description: Install Claude Code sound themes with intelligent settings merging and theme selection
 ---
 
-# Install Claude Code Sound Themes
+# Install Claude Code Audio Themes
 
-Install the sound notification system for Claude Code with intelligent settings merging and optional theme selection.
+Install the audio notification system for Claude Code with intelligent settings merging and optional theme selection.
 
 ## Usage
 

@@ -3,7 +3,7 @@ allowed-tools: Bash(*), Read(*), Edit(*), Write(*)
 description: Create pull request with intelligent validation and customized descriptions based on contribution type
 ---
 
-# Create Pull Request for Claude Code Sound Themes
+# Create Pull Request for Claude Code Audio Themes
 
 Creates a pull request with intelligent analysis of changes and customized descriptions based on the type of contribution (theme, code, documentation).
 

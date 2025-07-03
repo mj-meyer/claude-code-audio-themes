@@ -1,6 +1,6 @@
-# Claude Code Sound Themes
+# Claude Code Audio Themes
 
-A collection of sound themes for Claude Code notification hooks.
+A collection of audio themes for Claude Code notification hooks.
 
 ## Theme Structure
 
